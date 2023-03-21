@@ -1,19 +1,18 @@
 const User = require('../models/User') 
-const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 
 const register = async (req,res) => {
-    const userExists = await User.findOne({username: req.body.username})
-    if(userExists) {
-        return res.status(400).send('User already exists')
-    }
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    const user = new User({
+        username: req.body.username,
+        password: hashedPassword
+    })
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const {username, password} = req.body
-        const user = await User.create({username, password: hashedPassword}) 
-        res.status(200).json(user)   
+        const savedUser = await user.save()
+        res.send(savedUser)
     }
     catch (err) {
         console.log(err)
@@ -28,7 +27,6 @@ const userLogin = async (req,res) => {
     try {
         if(await bcrypt.compare(req.body.password, user.password)) {
             const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
-            // res.header('auth-token', token).json({token: token})
             res.send({token: token})
         }
         else {
@@ -65,9 +63,6 @@ const token = async (req,res) => {
         res.status(400).send('Invalid token')
     }
 }
-
-
-
 
 
 module.exports = { 

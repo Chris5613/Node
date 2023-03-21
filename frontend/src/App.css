@@ -17,7 +17,6 @@
   margin-top: 300px;
 }
 
-/* place the login container in the middle of te page */
 .login-container {
     display: flex;
     align-items: center;
@@ -56,4 +55,18 @@
   font-weight: 600;
   margin-top: 1rem;
   display: block;
+}
+
+.signup-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.signup-form {
+height: auto;
+width: 600px;
+padding: 40px;
+border-radius: 5px;
 }

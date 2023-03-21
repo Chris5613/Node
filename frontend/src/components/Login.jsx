@@ -45,10 +45,8 @@ return (
             </div>
         </form>
     </div>
-    <div className="ghost"></div>
 </>
-
-  )
+)
 }
 
 export default Login
