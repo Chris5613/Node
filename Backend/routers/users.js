@@ -4,7 +4,8 @@ const {
     register,
     userLogin,
     userSignout,
-    token
+    token,
+    getUsers
 }
 = require('../controllers/userControllers')
 

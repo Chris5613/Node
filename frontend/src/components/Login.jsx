@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [token, setToken] = useState('')
     const [alert, setAlert] = useState(false)
 
     async function handleSubmit(e) {
@@ -20,10 +20,14 @@ const Login = () => {
         })
         const data = await res.json()
         console.log(data)
-        setToken(data.token)
+        localStorage.setItem('jwt', data.token)
 	}
+    const navigate = useNavigate();
     const onAlert = () => {
         setAlert(true)
+        setTimeout(() => {
+            navigate('/')
+    }, 2000)
     }
 return (
     <>

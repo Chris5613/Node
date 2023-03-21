@@ -53,7 +53,7 @@ const userSignout = async (req,res) => {
 }
 
 const token = async (req,res) => {
-    const token = req.header('auth-token')
+    const token = req.headers["authorization"]
     if(!token) {
         return res.status(401).json({msg:'Access denied'})
     }
@@ -63,7 +63,7 @@ const token = async (req,res) => {
         res.send(token)
     }
     catch (err) {
-        res.status(400).send('Invalid token')
+        res.status(400).json('Invalid token')
     }
 }
 

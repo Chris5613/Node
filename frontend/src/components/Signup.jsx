@@ -1,13 +1,11 @@
 import { useState } from "react"
-import Nav from './Nav';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 const Signup = () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [alert, setAlert] = useState(false)
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -27,9 +25,14 @@ const Signup = () => {
     }
   };
 
+  const navigate = useNavigate();
   const onAlert = () => {
     setAlert(true)
+    setTimeout(() => {
+      navigate('/login')
+    }, 2000)
   }
+
   return (
   <section>
     <div className="signup-container">
