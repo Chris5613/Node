@@ -70,3 +70,7 @@ width: 600px;
 padding: 40px;
 border-radius: 5px;
 }
+
+.alerts {
+  margin-top: 1rem;
+}

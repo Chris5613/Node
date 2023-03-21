@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 const Login = () => {
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [token, setToken] = useState('')
+    const [alert, setAlert] = useState(false)
 
     async function handleSubmit(e) {
 		e.preventDefault();
@@ -19,9 +20,11 @@ const Login = () => {
         })
         const data = await res.json()
         console.log(data)
+        setToken(data.token)
 	}
-
-
+    const onAlert = () => {
+        setAlert(true)
+    }
 return (
     <>
     <div className="login-container">
@@ -37,9 +40,12 @@ return (
                 <label htmlFor="password">Password</label>
                 <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <button className=" login-btn">
+            <button className=" login-btn" onClick={onAlert}>
                 Submit
             </button>
+            {alert && <div className="alert alert-success alerts" role="alert">
+            You have Logged in! Now trying logging out.
+            </div>} 
             <div className="login-link">
                 <a href="signup">Don't have a account? Sign up</a>
             </div>

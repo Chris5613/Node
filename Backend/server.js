@@ -3,9 +3,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose')
 const userRoutes = require('./routers/users'); 
+const cors = require('cors')
 
 
 const app = express(); 
+app.use(cors({
+    origin: "*",
+    headers: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, res.method)

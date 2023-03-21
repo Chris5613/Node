@@ -4,20 +4,23 @@ const jwt = require('jsonwebtoken')
 
 
 const register = async (req,res) => {
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
-    const user = new User({
-        username: req.body.username,
-        password: hashedPassword
-    })
+
+    const userExists = await User.findOne({username: req.body.username})
+    if(userExists) {
+        return res.status(400).send('User already exists')
+    }
     try {
-        const savedUser = await user.save()
-        res.send(savedUser)
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const {username, password} = req.body
+        const user = await User.create({username, password: hashedPassword}) 
+        res.status(200).json(user)   
     }
     catch (err) {
         console.log(err)
     }
 }
+
+
 
 const userLogin = async (req,res) => {
     const user = await User.findOne({username: req.body.username})
@@ -52,12 +55,12 @@ const userSignout = async (req,res) => {
 const token = async (req,res) => {
     const token = req.header('auth-token')
     if(!token) {
-        return res.status(401).send('Access denied')
+        return res.status(401).json({msg:'Access denied'})
     }
     try {
         const verified = jwt.verify(token, process.env.JWT_SECRET)
         req.user = verified
-        res.send({msg: 'Token is valid'})
+        res.send(token)
     }
     catch (err) {
         res.status(400).send('Invalid token')

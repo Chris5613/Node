@@ -1,7 +1,28 @@
 import { NavLink } from "react-router-dom"
 import { useState, useEffect } from "react"
 
-const Nav = () => {
+const Nav = ({token}) => {
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    useEffect(() => {
+        if (token) {
+            setLoggedIn(true);
+            console.log("token", token)
+        }
+    }, [token]);
+    
+
+    const logout = async () => {
+        const url = "http://localhost:3001/logout";
+        const response = await fetch(url, {
+            method: "DELETE",
+            credentials: "include",
+        });
+        if (response.ok) {
+            setLoggedIn(false);
+        }
+    }
+
 return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -10,17 +31,25 @@ return (
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">
-                    <li className="nav-item active">
+                {loggedIn ? (
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <NavLink token={token} className="nav-link" to="/profile">Profile</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/" onClick={logout}>Logout</NavLink>
+                        </li>
+                    </ul>
+                    ) : (
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
                         <NavLink className="nav-link" to="/login">Login</NavLink>
-                    </li>
-                    <li className="nav-item">
+                        </li>
+                        <li className="nav-item">
                         <NavLink className="nav-link" to="/signup">Signup</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/login">Logout</NavLink>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                )}
             </div>
         </nav>
     </div>
