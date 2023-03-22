@@ -8,7 +8,7 @@ const Login = () => {
 
     async function handleSubmit(e) {
 		e.preventDefault();
-		const res = await fetch('http://localhost:3001/login', {
+		const res = await fetch('https://backend-auth-f8lj.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

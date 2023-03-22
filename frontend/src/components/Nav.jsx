@@ -14,7 +14,7 @@ const Nav = () => {
     }, [token])
 
     const logout = async () => {
-        const url = "http://localhost:3001/signout";
+        const url = "https://backend-auth-f8lj.onrender.com/signout";
         const response = await fetch(url, {
             method: "PUT",
         });

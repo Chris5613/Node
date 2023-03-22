@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const userRoutes = require('./routers/users'); 
 const cors = require('cors')
 
-
+// server file
 const app = express(); 
 app.use(cors({
     origin: "*",

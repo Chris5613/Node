@@ -12,7 +12,7 @@ const Signup = () => {
     const data = {};
     data.username = username;
     data.password = password;
-    const res = await fetch("http://localhost:3001/register", {
+    const res = await fetch("https://backend-auth-f8lj.onrender.com/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
