@@ -3,6 +3,8 @@
 Using the MERN stack, this is a application to show user authoraztion with jwt tokens.
 The JWT tokens are kept in local storage, gets created when you login and deleted when logged out.
 
+Deployed at: https://f-auth.onrender.com/
+
 ![d2d0ee0adde9cf91e0187f33c3a85b9e](https://user-images.githubusercontent.com/24240227/226700865-2ee993cb-f95c-4acb-8fa0-aac0ba267dde.png)
 
 Once you are logged in you will see this screen that will show your JWT token that is assigned to you.
