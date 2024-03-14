@@ -27,19 +27,12 @@ const userLogin = async (req,res) => {
     if(user == null) {
         return res.status(404).send('No user with that username or password')
     }
-    try {
-        if(await bcrypt.compare(req.body.password, user.password)) {
-            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
-            res.send({token: token})
-        }
-        else {
-            res.status(404).send('Incorrect password or username')
-        }
+    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
+    res.send({token: token})
+
     }
-    catch (err) {
-        res.status(500).send()
-    }
-}
+
+
 
 const userSignout = async (req,res) => {
     const authHeader = req.headers["authorization"];
